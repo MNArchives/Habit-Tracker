@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habiit - 21 Day Habit Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Habiit</h1>
+            <p>21 Day Habit Tracker</p>
+        </header>
+
+        <main>
+            <div class="habit-form">
+                <h2>Start Your Journey</h2>
+                <input type="text" id="habit-name" placeholder="Enter your habit (e.g., Drink 8 glasses of water)">
+                <button id="start-habit">Start Tracking</button>
+            </div>
+
+            <div class="calendar-container" id="calendar">
+                <h2>Progress Calendar</h2>
+                <div class="calendar-grid">
+                    <!-- Calendar days will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span id="days-completed">0</span>
+                    <p>Days Completed</p>
+                </div>
+                <div class="stat-item">
+                    <span id="days-left">21</span>
+                    <p>Days Left</p>
+                </div>
+                <div class="stat-item">
+                    <span id="streak">0</span>
+                    <p>Current Streak</p>
+                </div>
+            </div>
+
+            <div class="daily-check">
+                <button id="mark-completed" class="action-btn">
+                    <i class="fas fa-check"></i> Mark as Completed
+                </button>
+                <button id="mark-missed" class="action-btn missed">
+                    <i class="fas fa-times"></i> Mark as Missed
+                </button>
+            </div>
+
+            <div class="badge-container">
+                <h3>Your Badges</h3>
+                <div id="badges"></div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
