@@ -134,11 +134,9 @@ a:hover {
 
 .calendar-header {
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px 10px 0 0;
-    padding: 1rem;
-    margin-bottom: 1rem;
-}
+    padding: 1rem
 
+}
 .calendar-header h5 {
     margin: 0;
     font-size: 1.25rem;
