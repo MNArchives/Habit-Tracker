@@ -134,27 +134,88 @@ a:hover {
 
 .calendar-header {
     background: rgba(255, 255, 255, 0.05);
-    padding: 1rem
-
+    padding: 1rem;
 }
 .calendar-header h5 {
     margin: 0;
     font-size: 1.25rem;
 }
 
-.calendar-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1rem;
-    margin-top: 1rem;
+/* Calendar weekday header row */
+.calendar-container {
+    width: 100%;
+    box-sizing: border-box;
 }
 
+.calendar-header.calendar-weekdays, .calendar-days, .calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #23272f;
+}
+
+/* Calendar days styling handled by combined selector above */
+
+.calendar-header {
+    /* For navigation/header only, not weekdays */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+/* Only style weekday header as plain text, not circles */
+.calendar-header.calendar-weekdays .calendar-day {
+    background-color: #23272f;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    border: none;
+    outline: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    user-select: none;
+    letter-spacing: 1px;
+    /* Match the calendar day dimensions */
+    aspect-ratio: 1;
+}
+
+.calendar-header.calendar-weekdays .calendar-day:focus,
+.calendar-header.calendar-weekdays .calendar-day:active,
+.calendar-header.calendar-weekdays .calendar-day:hover {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* No borders between weekday headers */
+.calendar-header.calendar-weekdays .calendar-day:not(:last-child) {
+    border-right: none;
+}
+
+/* Keep regular calendar days styled as before */
 .calendar-day {
-    padding: 0.5rem;
     text-align: center;
-    font-weight: 500;
-    color: var(--text-color);
-    opacity: 0.7;
+    font-weight: bold;
+    padding: 10px 0;
+    background-color: #23272f;
+    color: #fff;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    font-size: 1rem;
+    aspect-ratio: 1;
 }
 
 .calendar-body {
