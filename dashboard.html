@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habiit - Dashboard Preview</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/main.min.css' rel='stylesheet' />
+    <link href='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/main.min.css' rel='stylesheet' />
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 bg-dark text-white">
+                <div class="sidebar-sticky">
+                    <div class="p-4">
+                        <h4 class="text-gradient mb-4">Habiit</h4>
+                        <nav class="nav flex-column">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-home me-2"></i>Dashboard
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-chart-line me-2"></i>Progress
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-tasks me-2"></i>Habits
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-star me-2"></i>Badges
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10">
+                <div class="p-4">
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-gradient mb-0">Dashboard</h2>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-plus me-2"></i>Add Habit
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-sync-alt me-2"></i>Sync Data
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <div class="card-body">
+                                    <h6 class="card-title text-secondary mb-1">Current Streak</h6>
+                                    <h2 class="mb-0">7</h2>
+                                    <p class="text-success mb-0">+3 from yesterday</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <div class="card-body">
+                                    <h6 class="card-title text-secondary mb-1">Days Completed</h6>
+                                    <h2 class="mb-0">14</h2>
+                                    <p class="text-success mb-0">+1 today</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <div class="card-body">
+                                    <h6 class="card-title text-secondary mb-1">Badges Earned</h6>
+                                    <h2 class="mb-0">3</h2>
+                                    <p class="text-secondary mb-0">Streaker, Consistent, Master</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <div class="card-body">
+                                    <h6 class="card-title text-secondary mb-1">Days Left</h6>
+                                    <h2 class="mb-0">7</h2>
+                                    <p class="text-secondary mb-0">7 days to go</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modern Calendar -->
+                    <div class="card bg-dark text-white mb-4">
+                        <div class="card-body">
+                            <div class="calendar-container">
+                                <div class="calendar-header">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <div class="month-year d-flex align-items-center gap-2">
+                                            <button class="btn btn-link p-0" id="prev-month">
+                                                <i class="fas fa-chevron-left"></i>
+                                            </button>
+                                            <span id="month-name" class="mx-1"></span>
+                                            <span id="year" class="text-secondary mx-1"></span>
+                                            <button class="btn btn-link p-0" id="next-month">
+                                                <i class="fas fa-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                        <div class="date-time ms-4 mt-n2" id="current-time">
+                                            <span class="text-secondary">Last updated: </span>
+                                            <span id="time">00:00:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="calendar-header calendar-weekdays mb-2">
+                                    <div class="calendar-day">Sun</div>
+                                    <div class="calendar-day">Mon</div>
+                                    <div class="calendar-day">Tue</div>
+                                    <div class="calendar-day">Wed</div>
+                                    <div class="calendar-day">Thu</div>
+                                    <div class="calendar-day">Fri</div>
+                                    <div class="calendar-day">Sat</div>
+                                </div>
+                                <div class="calendar-days">
+                                    <!-- Days will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Section -->
+                    <div class="card bg-dark text-white mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="avatar me-3">
+                                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=10b981&color=fff&size=128" alt="John Doe" class="rounded-circle" width="64">
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">John Doe</h5>
+                                    <p class="text-secondary mb-0">Day 14 of 21</p>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-stats mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-secondary">Current Streak</span>
+                                    <span class="text-success">15 days</span>
+                                </div>
+                                <div class="progress bg-secondary">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 71.43%"></div>
+                                </div>
+                                <div class="text-success small mt-2">
+                                    <i class="fas fa-fire me-1"></i>15-day streak! 🔥
+                                </div>
+                            </div>
+
+                            <div class="habits-grid">
+                                <div class="habit-card bg-dark text-white mb-3">
+                                    <div class="habit-header d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Drink Water</h6>
+                                        <span class="badge bg-success">Completed</span>
+                                    </div>
+                                    <div class="habit-progress">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-secondary">Streak</span>
+                                            <span class="text-success">14/14</span>
+                                        </div>
+                                        <div class="progress bg-secondary">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="habit-notes mt-2">
+                                        <p class="text-secondary mb-0">"Drank 8 glasses today. Felt great!"</p>
+                                    </div>
+                                </div>
+
+                                <div class="habit-card bg-dark text-white mb-3">
+                                    <div class="habit-header d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Exercise</h6>
+                                        <span class="badge bg-success">Completed</span>
+                                    </div>
+                                    <div class="habit-progress">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-secondary">Streak</span>
+                                            <span class="text-success">13/14</span>
+                                        </div>
+                                        <div class="progress bg-secondary">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 92.86%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="habit-notes mt-2">
+                                        <p class="text-secondary mb-0">"30 minutes of yoga. Improved flexibility."</p>
+                                    </div>
+                                </div>
+
+                                <div class="habit-card bg-dark text-white mb-3">
+                                    <div class="habit-header d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Meditate</h6>
+                                        <span class="badge bg-success">Completed</span>
+                                    </div>
+                                    <div class="habit-progress">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-secondary">Streak</span>
+                                            <span class="text-success">12/14</span>
+                                        </div>
+                                        <div class="progress bg-secondary">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 85.71%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="habit-notes mt-2">
+                                        <p class="text-secondary mb-0">"15 minutes of mindfulness. Reduced stress."</p>
+                                    </div>
+                                </div>
+
+                                <div class="habit-card bg-dark text-white mb-3">
+                                    <div class="habit-header d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Read Book</h6>
+                                        <span class="badge bg-warning">Pending</span>
+                                    </div>
+                                    <div class="habit-progress">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-secondary">Streak</span>
+                                            <span class="text-success">11/14</span>
+                                        </div>
+                                        <div class="progress bg-secondary">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 78.57%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="habit-notes mt-2">
+                                        <p class="text-secondary mb-0">"Started reading 'Atomic Habits'"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/main.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/main.min.js'></script>
+<script>
+// Helper function to get habit count for a specific day
+function getHabitCountForDay(date) {
+    // This is a placeholder - you'll need to implement actual data fetching
+    const habits = [
+        { date: '2025-05-08', count: 1 },
+        { date: '2025-05-09', count: 2 },
+        { date: '2025-05-10', count: 1 },
+        { date: '2025-05-11', count: 3 }
+    ];
+    
+    const dateStr = date.toISOString().split('T')[0];
+    const habit = habits.find(h => h.date === dateStr);
+    return habit ? habit.count : 0;
+}
+
+// Function to show day details
+function showDayDetails(date) {
+    // This is a placeholder - you'll need to implement actual functionality
+    console.log('Showing details for:', date);
+}
+
+// Initialize calendar
+let currentMonth = new Date();
+
+// Update time every second
+function updateTime() {
+    const timeDisplay = document.getElementById('time');
+    if (timeDisplay) {
+        const now = new Date();
+        // Format: Sunday, May 18, 2025, 16:37:08
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+        timeDisplay.textContent = now.toLocaleString('en-US', options);
+    }
+}
+setInterval(updateTime, 1000);
+
+// Update calendar display
+function updateCalendar() {
+    const calendarDays = document.querySelector('.calendar-days');
+    if (!calendarDays) return;
+
+    const monthName = document.getElementById('month-name');
+    const year = document.getElementById('year');
+    
+    if (monthName && year) {
+        monthName.textContent = currentMonth.toLocaleString('default', { month: 'long' });
+        year.textContent = currentMonth.getFullYear();
+    }
+
+    const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+    const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const firstDayIndex = firstDay.getDay();
+    
+    calendarDays.innerHTML = '';
+
+    // Add empty cells for days before first day of month
+    for (let i = 0; i < firstDayIndex; i++) {
+        calendarDays.innerHTML += '<div class="calendar-day empty"></div>';
+    }
+
+    // Add days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+        const isToday = date.toDateString() === new Date().toDateString();
+        
+        const habitCount = getHabitCountForDay(date);
+        
+        let classes = 'calendar-day';
+        if (isToday) classes += ' today';
+        if (habitCount > 0) classes += ' completed';
+        
+        calendarDays.innerHTML += `
+            <div class="${classes}" onclick="showDayDetails('${date.toISOString().split('T')[0]}')">
+                <span class="day-number">${day}</span>
+                ${habitCount > 0 ? `<div class="habit-count">${habitCount}</div>` : ''}
+            </div>
+        `;
+    }
+}
+
+// Initialize calendar when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    const prevMonthBtn = document.getElementById('prev-month');
+    const nextMonthBtn = document.getElementById('next-month');
+    
+    if (prevMonthBtn) {
+        prevMonthBtn.addEventListener('click', () => {
+            currentMonth.setMonth(currentMonth.getMonth() - 1);
+            updateCalendar();
+        });
+    }
+
+    if (nextMonthBtn) {
+        nextMonthBtn.addEventListener('click', () => {
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+            updateCalendar();
+        });
+    }
+
+    // Initial calendar update
+    updateCalendar();
+});
+</script>
+</body>
+</html>
