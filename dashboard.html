@@ -111,6 +111,7 @@
                                             <button class="btn btn-link p-0" id="next-month">
                                                 <i class="fas fa-chevron-right"></i>
                                             </button>
+                                            <span class="week-number-badge" id="week-number">Week 20</span>
                                         </div>
                                         <div class="date-time ms-4 mt-n2" id="current-time">
                                             <span class="text-secondary">Last updated: </span>
@@ -243,6 +244,23 @@
             </div>
         </div>
     </div>
+    
+    <!-- Popup overlay -->
+    <div class="habit-popup-overlay" id="habit-popup-overlay"></div>
+    
+    <!-- Habit popup -->
+    <div class="habit-popup" id="habit-popup">
+        <div class="habit-popup-header">
+            <h4>Habits Completed</h4>
+            <button class="habit-popup-close" id="habit-popup-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="habit-popup-body">
+            <span class="habit-popup-date" id="habit-popup-date">May 20, 2025</span>
+            <ul class="habit-popup-list" id="habit-popup-list">
+                <!-- Habits will be populated by JavaScript -->
+            </ul>
+        </div>
+    </div>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/main.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/main.min.js'></script>
 <script>
@@ -261,10 +279,103 @@ function getHabitCountForDay(date) {
     return habit ? habit.count : 0;
 }
 
-// Function to show day details
+// Get habits for a specific day
+function getHabitsForDay(date) {
+    // This is sample data - in a real app, fetch this from your database
+    const habitData = [
+        { 
+            date: '2025-05-08', 
+            habits: [
+                { name: 'Drink Water', status: 'completed', notes: 'Drank 8 glasses today' },
+                { name: 'Exercise', status: 'completed', notes: '30 minutes of yoga' }
+            ]
+        },
+        { 
+            date: '2025-05-09', 
+            habits: [
+                { name: 'Read Book', status: 'completed', notes: 'Read for 20 minutes' },
+                { name: 'Meditation', status: 'completed', notes: '10 minutes morning meditation' }
+            ]
+        },
+        { 
+            date: '2025-05-10', 
+            habits: [
+                { name: 'Drink Water', status: 'completed', notes: 'Hit water goal for the day' }
+            ]
+        },
+        { 
+            date: '2025-05-11', 
+            habits: [
+                { name: 'Morning Walk', status: 'completed', notes: '20 minutes around the park' },
+                { name: 'Drink Water', status: 'completed', notes: '6 glasses of water' },
+                { name: 'Journal', status: 'completed', notes: 'Wrote about today\'s goals' }
+            ]
+        },
+        { 
+            date: '2025-05-20', 
+            habits: [
+                { name: 'Exercise', status: 'completed', notes: '45 minute workout' },
+                { name: 'Journal', status: 'completed', notes: 'Daily reflection completed' },
+                { name: 'Drink Water', status: 'completed', notes: 'Stayed hydrated all day' }
+            ]
+        }
+    ];
+    
+    const dateStr = date.toISOString().split('T')[0];
+    const dayData = habitData.find(d => d.date === dateStr);
+    return dayData ? dayData.habits : [];
+}
+
+// Format date as a readable string
+function formatDate(date) {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+// Function to show popup with habits completed on a specific day
 function showDayDetails(date) {
-    // This is a placeholder - you'll need to implement actual functionality
-    console.log('Showing details for:', date);
+    const habits = getHabitsForDay(date);
+    const formattedDate = formatDate(date);
+    
+    // Update popup date
+    document.getElementById('habit-popup-date').textContent = formattedDate;
+    
+    // Get the popup list element
+    const popupList = document.getElementById('habit-popup-list');
+    popupList.innerHTML = '';
+    
+    if (habits.length === 0) {
+        // No habits completed this day
+        popupList.innerHTML = `
+            <div class="habit-popup-empty">
+                <i class="fas fa-calendar-day mb-3" style="font-size: 2rem; opacity: 0.5;"></i>
+                <p>No habits completed on this day.</p>
+            </div>
+        `;
+    } else {
+        // Add each habit to the list
+        habits.forEach(habit => {
+            const habitItem = document.createElement('li');
+            habitItem.className = 'habit-popup-item';
+            habitItem.innerHTML = `
+                <div class="habit-popup-item-header">
+                    <h5 class="habit-popup-item-title">${habit.name}</h5>
+                    <span class="badge bg-${habit.status === 'completed' ? 'success' : 'warning'}">
+                        ${habit.status.charAt(0).toUpperCase() + habit.status.slice(1)}
+                    </span>
+                </div>
+                <div class="habit-popup-item-notes">
+                    <i class="fas fa-quote-left me-1" style="opacity: 0.5;"></i>
+                    ${habit.notes}
+                </div>
+            `;
+            popupList.appendChild(habitItem);
+        });
+    }
+    
+    // Show the popup and overlay
+    document.getElementById('habit-popup-overlay').classList.add('show');
+    document.getElementById('habit-popup').classList.add('show');
 }
 
 // Initialize calendar
@@ -327,12 +438,23 @@ function updateCalendar() {
         if (isToday) classes += ' today';
         if (habitCount > 0) classes += ' completed';
         
-        calendarDays.innerHTML += `
-            <div class="${classes}" onclick="showDayDetails('${date.toISOString().split('T')[0]}')">
-                <span class="day-number">${day}</span>
-                ${habitCount > 0 ? `<div class="habit-count">${habitCount}</div>` : ''}
-            </div>
+        const dayElement = document.createElement('div');
+        dayElement.className = classes;
+        dayElement.innerHTML = `
+            <span class="day-number">${day}</span>
+            ${habitCount > 0 ? `<div class="habit-count">${habitCount}</div>` : ''}
         `;
+        
+        // Store the date as a data attribute
+        dayElement.setAttribute('data-date', date.toISOString().split('T')[0]);
+        
+        // Add click event listener
+        dayElement.addEventListener('click', function() {
+            const clickedDate = new Date(this.getAttribute('data-date'));
+            showDayDetails(clickedDate);
+        });
+        
+        calendarDays.appendChild(dayElement);
     }
 }
 
@@ -340,24 +462,42 @@ function updateCalendar() {
 document.addEventListener('DOMContentLoaded', function() {
     const prevMonthBtn = document.getElementById('prev-month');
     const nextMonthBtn = document.getElementById('next-month');
+    const popupCloseBtn = document.getElementById('habit-popup-close');
+    const popupOverlay = document.getElementById('habit-popup-overlay');
     
-    if (prevMonthBtn) {
-        prevMonthBtn.addEventListener('click', () => {
-            currentMonth.setMonth(currentMonth.getMonth() - 1);
-            updateCalendar();
-        });
-    }
-
-    if (nextMonthBtn) {
-        nextMonthBtn.addEventListener('click', () => {
-            currentMonth.setMonth(currentMonth.getMonth() + 1);
-            updateCalendar();
-        });
-    }
-
-    // Initial calendar update
+    // Month navigation
+    prevMonthBtn.addEventListener('click', function() {
+        currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1);
+        updateCalendar();
+    });
+    
+    nextMonthBtn.addEventListener('click', function() {
+        currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1);
+        updateCalendar();
+    });
+    
+    // Close popup when the close button is clicked
+    popupCloseBtn.addEventListener('click', closeHabitPopup);
+    
+    // Close popup when clicking outside the popup (on the overlay)
+    popupOverlay.addEventListener('click', closeHabitPopup);
+    
+    // Close popup when ESC key is pressed
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeHabitPopup();
+        }
+    });
+    
     updateCalendar();
+    updateTime();
 });
+
+// Function to close the habit popup
+function closeHabitPopup() {
+    document.getElementById('habit-popup-overlay').classList.remove('show');
+    document.getElementById('habit-popup').classList.remove('show');
+}
 </script>
 </body>
 </html>
