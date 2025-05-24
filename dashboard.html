@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habiit - Dashboard Preview</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/main.min.css' rel='stylesheet' />
+    <link href='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/main.min.css' rel='stylesheet' />
+    <style>
+        /* Target and hide the specific help button in the bottom right corner */
+        .fc-daygrid-day-events:after,
+        .fc-daygrid-body:after,
+        .fc-scrollgrid-sync-table:after,
+        .fc button[aria-label="About the calendar"],
+        .fc a[aria-label="About the calendar"],
+        .fc div[aria-label="About the calendar"],
+        .fc-icon-question-circle,
+        .fc-help-button,
+        button.fc-button-primary[title="About the calendar"],
+        /* Direct positional targeting */
+        .fc *[style*="position: fixed; bottom:"],
+        .fc *[style*="position:fixed;bottom:"],
+        div[style*="position: fixed; bottom: 0px; right: 0px;"],
+        div[style*="position:fixed;bottom:0;right:0"],
+        div.fc div:last-child:not(.fc-view-harness):not(.fc-col-header-cell):not(.fc-daygrid-day-frame) {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            position: absolute !important;
+            left: -9999px !important;
+        }
+        
+        /* Additional FullCalendar overrides */
+        .fc .fc-button-primary,
+        .fc-toolbar-chunk:last-child,
+        .fc-button-group:last-child {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row min-vh-100">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 bg-dark text-white">
+                <div class="sidebar-sticky">
+                    <div class="p-4">
+                        <h4 class="text-gradient mb-4">Habiit</h4>
+                        <nav class="nav flex-column">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-home me-2"></i>Dashboard
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-chart-line me-2"></i>Progress
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-tasks me-2"></i>Habits
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-star me-2"></i>Badges
+                            </a>
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10">
+                <div class="p-4">
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="text-gradient mb-0">Dashboard</h2>
+                        <div class="btn-group">
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-plus me-2"></i>Add Habit
+                            </button>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-sync-alt me-2"></i>Sync Data
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <div class="card-body">
+                                    <h6 class="card-title text-secondary mb-1">Current Streak</h6>
+                                    <h2 class="mb-0">7</h2>
+                                    <p class="text-success mb-0">+3 from yesterday</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <div class="card-body">
+                                    <h6 class="card-title text-secondary mb-1">Days Completed</h6>
+                                    <h2 class="mb-0">14</h2>
+                                    <p class="text-success mb-0">+1 today</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <div class="card-body">
+                                    <h6 class="card-title text-secondary mb-1">Badges Earned</h6>
+                                    <h2 class="mb-0">3</h2>
+                                    <p class="text-secondary mb-0">Streaker, Consistent, Master</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-dark text-white">
+                                <div class="card-body">
+                                    <h6 class="card-title text-secondary mb-1">Days Left</h6>
+                                    <h2 class="mb-0">7</h2>
+                                    <p class="text-secondary mb-0">7 days to go</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modern Calendar -->
+                    <div class="card bg-dark text-white mb-4">
+                        <div class="card-body">
+                            <div class="calendar-container">
+                                <div class="calendar-header">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <div class="month-year d-flex align-items-center gap-2">
+                                            <button class="btn btn-link p-0" id="prev-month">
+                                                <i class="fas fa-chevron-left"></i>
+                                            </button>
+                                            <span id="month-name" class="mx-1"></span>
+                                            <span id="year" class="text-secondary mx-1"></span>
+                                            <button class="btn btn-link p-0" id="next-month">
+                                                <i class="fas fa-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                        <div class="date-time ms-4 mt-n2" id="current-time">
+                                            <span class="text-secondary">Last updated: </span>
+                                            <span id="time">00:00:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="calendar-header calendar-weekdays mb-2">
+                                    <div class="calendar-day">Sun</div>
+                                    <div class="calendar-day">Mon</div>
+                                    <div class="calendar-day">Tue</div>
+                                    <div class="calendar-day">Wed</div>
+                                    <div class="calendar-day">Thu</div>
+                                    <div class="calendar-day">Fri</div>
+                                    <div class="calendar-day">Sat</div>
+                                </div>
+                                <div class="calendar-days">
+                                    <!-- Days will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Section -->
+                    <div class="card bg-dark text-white mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="avatar me-3">
+                                    <img src="https://ui-avatars.com/api/?name=John+Doe&background=10b981&color=fff&size=128" alt="John Doe" class="rounded-circle" width="64">
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">John Doe</h5>
+                                    <p class="text-secondary mb-0">Day 14 of 21</p>
+                                </div>
+                            </div>
+                            
+                            <div class="progress-stats mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-secondary">Current Streak</span>
+                                    <span class="text-success">15 days</span>
+                                </div>
+                                <div class="progress bg-secondary">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 71.43%"></div>
+                                </div>
+                                <div class="text-success small mt-2">
+                                    <i class="fas fa-fire me-1"></i>15-day streak! 🔥
+                                </div>
+                            </div>
+
+                            <div class="habits-grid">
+                                <div class="habit-card bg-dark text-white mb-3">
+                                    <div class="habit-header d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Drink Water</h6>
+                                        <span class="badge bg-success">Completed</span>
+                                    </div>
+                                    <div class="habit-progress">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-secondary">Streak</span>
+                                            <span class="text-success">14/14</span>
+                                        </div>
+                                        <div class="progress bg-secondary">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="habit-notes mt-2">
+                                        <p class="text-secondary mb-0">"Drank 8 glasses today. Felt great!"</p>
+                                    </div>
+                                </div>
+
+                                <div class="habit-card bg-dark text-white mb-3">
+                                    <div class="habit-header d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Exercise</h6>
+                                        <span class="badge bg-success">Completed</span>
+                                    </div>
+                                    <div class="habit-progress">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-secondary">Streak</span>
+                                            <span class="text-success">13/14</span>
+                                        </div>
+                                        <div class="progress bg-secondary">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 92.86%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="habit-notes mt-2">
+                                        <p class="text-secondary mb-0">"30 minutes of yoga. Improved flexibility."</p>
+                                    </div>
+                                </div>
+
+                                <div class="habit-card bg-dark text-white mb-3">
+                                    <div class="habit-header d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Meditate</h6>
+                                        <span class="badge bg-success">Completed</span>
+                                    </div>
+                                    <div class="habit-progress">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-secondary">Streak</span>
+                                            <span class="text-success">12/14</span>
+                                        </div>
+                                        <div class="progress bg-secondary">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 85.71%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="habit-notes mt-2">
+                                        <p class="text-secondary mb-0">"15 minutes of mindfulness. Reduced stress."</p>
+                                    </div>
+                                </div>
+
+                                <div class="habit-card bg-dark text-white mb-3">
+                                    <div class="habit-header d-flex justify-content-between align-items-center mb-2">
+                                        <h6 class="mb-0">Read Book</h6>
+                                        <span class="badge bg-warning">Pending</span>
+                                    </div>
+                                    <div class="habit-progress">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-secondary">Streak</span>
+                                            <span class="text-success">11/14</span>
+                                        </div>
+                                        <div class="progress bg-secondary">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 78.57%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="habit-notes mt-2">
+                                        <p class="text-secondary mb-0">"Started reading 'Atomic Habits'"</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Popup overlay -->
+    <div class="habit-popup-overlay" id="habit-popup-overlay"></div>
+    
+    <!-- Habit popup -->
+    <div class="habit-popup" id="habit-popup">
+        <div class="habit-popup-header">
+            <h4>Habits Completed</h4>
+            <button class="habit-popup-close" id="habit-popup-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="habit-popup-body">
+            <span class="habit-popup-date" id="habit-popup-date">May 20, 2025</span>
+            <ul class="habit-popup-list" id="habit-popup-list">
+                <!-- Habits will be populated by JavaScript -->
+            </ul>
+        </div>
+    </div>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/main.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/main.min.js'></script>
+<script>
+// Remove help button from FullCalendar when it appears
+function removeHelpButton() {
+    // Look for any elements with buttons or links in bottom right
+    const possibleButtons = document.querySelectorAll('a[role="button"], button, div.fc button, div.fc a, div[style*="position: fixed"], div[style*="bottom: 0"], div[style*="right: 0"]');
+    
+    possibleButtons.forEach(el => {
+        // Check if it's in the bottom right area
+        const rect = el.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+        
+        // If it's in the bottom right quarter of the screen
+        if (rect.bottom > viewportHeight * 0.75 && rect.right > viewportWidth * 0.75) {
+            // Hide it
+            el.style.display = 'none';
+            el.style.visibility = 'hidden';
+            el.style.opacity = '0';
+            el.style.pointerEvents = 'none';
+            // Or remove it completely
+            if (el.parentNode) {
+                el.parentNode.removeChild(el);
+            }
+        }
+    });
+    
+    // Also try to target elements that contain question mark or help icon
+    const helpIcons = document.querySelectorAll('i[class*="question"], i[class*="help"], span[class*="question"], span[class*="help"], button[title*="help"], button[title*="about"], a[title*="help"], a[title*="about"]');
+    
+    helpIcons.forEach(el => {
+        // Go up a few parent levels to remove the entire button
+        let parent = el;
+        for (let i = 0; i < 3; i++) {
+            if (parent && parent.parentNode) {
+                parent = parent.parentNode;
+            }
+        }
+        if (parent && parent !== document.body && parent !== document.documentElement) {
+            parent.style.display = 'none';
+            if (parent.parentNode) {
+                parent.parentNode.removeChild(parent);
+            }
+        }
+    });
+}
+
+// Run on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Run immediately
+    removeHelpButton();
+    
+    // And keep checking periodically in case it appears after page load
+    setInterval(removeHelpButton, 500);
+});
+
+// Helper function to get habit count for a specific day
+function getHabitCountForDay(date) {
+    // This is a placeholder - you'll need to implement actual data fetching
+    const habits = [
+        { date: '2025-05-08', count: 1 },
+        { date: '2025-05-09', count: 2 },
+        { date: '2025-05-10', count: 1 },
+        { date: '2025-05-11', count: 3 }
+    ];
+    
+    const dateStr = date.toISOString().split('T')[0];
+    const habit = habits.find(h => h.date === dateStr);
+    return habit ? habit.count : 0;
+}
+
+// Get habits for a specific day
+function getHabitsForDay(date) {
+    // This is sample data - in a real app, fetch this from your database
+    const habitData = [
+        { 
+            date: '2025-05-08', 
+            habits: [
+                { name: 'Drink Water', status: 'completed', notes: 'Drank 8 glasses today' },
+                { name: 'Exercise', status: 'completed', notes: '30 minutes of yoga' }
+            ]
+        },
+        { 
+            date: '2025-05-09', 
+            habits: [
+                { name: 'Read Book', status: 'completed', notes: 'Read for 20 minutes' },
+                { name: 'Meditation', status: 'completed', notes: '10 minutes morning meditation' }
+            ]
+        },
+        { 
+            date: '2025-05-10', 
+            habits: [
+                { name: 'Drink Water', status: 'completed', notes: 'Hit water goal for the day' }
+            ]
+        },
+        { 
+            date: '2025-05-11', 
+            habits: [
+                { name: 'Morning Walk', status: 'completed', notes: '20 minutes around the park' },
+                { name: 'Drink Water', status: 'completed', notes: '6 glasses of water' },
+                { name: 'Journal', status: 'completed', notes: 'Wrote about today\'s goals' }
+            ]
+        },
+        { 
+            date: '2025-05-20', 
+            habits: [
+                { name: 'Exercise', status: 'completed', notes: '45 minute workout' },
+                { name: 'Journal', status: 'completed', notes: 'Daily reflection completed' },
+                { name: 'Drink Water', status: 'completed', notes: 'Stayed hydrated all day' }
+            ]
+        }
+    ];
+    
+    const dateStr = date.toISOString().split('T')[0];
+    const dayData = habitData.find(d => d.date === dateStr);
+    return dayData ? dayData.habits : [];
+}
+
+// Format date as a readable string
+function formatDate(date) {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+// Function to show popup with habits completed on a specific day
+function showDayDetails(date) {
+    const habits = getHabitsForDay(date);
+    const formattedDate = formatDate(date);
+    
+    // Update popup date
+    document.getElementById('habit-popup-date').textContent = formattedDate;
+    
+    // Get the popup list element
+    const popupList = document.getElementById('habit-popup-list');
+    popupList.innerHTML = '';
+    
+    if (habits.length === 0) {
+        // No habits completed this day
+        popupList.innerHTML = `
+            <div class="habit-popup-empty">
+                <i class="fas fa-calendar-day mb-3" style="font-size: 2rem; opacity: 0.5;"></i>
+                <p>No habits completed on this day.</p>
+            </div>
+        `;
+    } else {
+        // Add each habit to the list
+        habits.forEach(habit => {
+            const habitItem = document.createElement('li');
+            habitItem.className = 'habit-popup-item';
+            habitItem.innerHTML = `
+                <div class="habit-popup-item-header">
+                    <h5 class="habit-popup-item-title">${habit.name}</h5>
+                    <span class="badge bg-${habit.status === 'completed' ? 'success' : 'warning'}">
+                        ${habit.status.charAt(0).toUpperCase() + habit.status.slice(1)}
+                    </span>
+                </div>
+                <div class="habit-popup-item-notes">
+                    <i class="fas fa-quote-left me-1" style="opacity: 0.5;"></i>
+                    ${habit.notes}
+                </div>
+            `;
+            popupList.appendChild(habitItem);
+        });
+    }
+    
+    // Show the popup and overlay
+    document.getElementById('habit-popup-overlay').classList.add('show');
+    document.getElementById('habit-popup').classList.add('show');
+}
+
+// Initialize calendar
+let currentMonth = new Date();
+
+// Update time every second
+function updateTime() {
+    const timeDisplay = document.getElementById('time');
+    if (timeDisplay) {
+        const now = new Date();
+        // Format: Sunday, May 18, 2025, 16:37:08
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+        timeDisplay.textContent = now.toLocaleString('en-US', options);
+    }
+}
+setInterval(updateTime, 1000);
+
+// Update calendar display
+function updateCalendar() {
+    const calendarDays = document.querySelector('.calendar-days');
+    if (!calendarDays) return;
+
+    const monthName = document.getElementById('month-name');
+    const year = document.getElementById('year');
+    
+    if (monthName && year) {
+        monthName.textContent = currentMonth.toLocaleString('default', { month: 'long' });
+        year.textContent = currentMonth.getFullYear();
+    }
+
+    const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1);
+    const lastDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const firstDayIndex = firstDay.getDay();
+    
+    calendarDays.innerHTML = '';
+
+    // Add empty cells for days before first day of month
+    for (let i = 0; i < firstDayIndex; i++) {
+        calendarDays.innerHTML += '<div class="calendar-day empty"></div>';
+    }
+
+    // Add days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+        const isToday = date.toDateString() === new Date().toDateString();
+        
+        const habitCount = getHabitCountForDay(date);
+        
+        let classes = 'calendar-day';
+        if (isToday) classes += ' today';
+        if (habitCount > 0) classes += ' completed';
+        
+        const dayElement = document.createElement('div');
+        dayElement.className = classes;
+        dayElement.innerHTML = `
+            <span class="day-number">${day}</span>
+        `;
+        
+        // Store the date as a data attribute
+        dayElement.setAttribute('data-date', date.toISOString().split('T')[0]);
+        
+        // Add click event listener
+        dayElement.addEventListener('click', function() {
+            const clickedDate = new Date(this.getAttribute('data-date'));
+            showDayDetails(clickedDate);
+        });
+        
+        calendarDays.appendChild(dayElement);
+    }
+}
+
+// Initialize calendar when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    const prevMonthBtn = document.getElementById('prev-month');
+    const nextMonthBtn = document.getElementById('next-month');
+    const popupCloseBtn = document.getElementById('habit-popup-close');
+    const popupOverlay = document.getElementById('habit-popup-overlay');
+    
+    // Month navigation
+    prevMonthBtn.addEventListener('click', function() {
+        currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1);
+        updateCalendar();
+    });
+    
+    nextMonthBtn.addEventListener('click', function() {
+        currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1);
+        updateCalendar();
+    });
+    
+    // Close popup when the close button is clicked
+    popupCloseBtn.addEventListener('click', closeHabitPopup);
+    
+    // Close popup when clicking outside the popup (on the overlay)
+    popupOverlay.addEventListener('click', closeHabitPopup);
+    
+    // Close popup when ESC key is pressed
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeHabitPopup();
+        }
+    });
+    
+    updateCalendar();
+    updateTime();
+});
+
+// Function to close the habit popup
+function closeHabitPopup() {
+    document.getElementById('habit-popup-overlay').classList.remove('show');
+    document.getElementById('habit-popup').classList.remove('show');
+}
+</script>
+</body>
+</html>
